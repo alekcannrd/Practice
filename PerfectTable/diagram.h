@@ -1,9 +1,9 @@
 #pragma once
 #include <QDialog>
 #include <QPushButton>
-#include "List.h"
 #include <QVBoxLayout>
 #include <QtCharts>
+#include "List.h"
 class Diagram: public QDialog
 {
     Q_OBJECT

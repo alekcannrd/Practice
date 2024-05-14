@@ -3,9 +3,9 @@
 
 Diagram::Diagram(List *list, QDialog *parent):
     QDialog(parent),
-    m_pList(list),
     m_pMainLayout(new QVBoxLayout(this)),
-    m_pSeries(new QBarSeries(this)),
+    m_pList(list),
+    m_pSeries(new QBarSeries),
     m_pChart(new QChart),
     m_pYAxis(new QValueAxis),
     m_pChartView(new QChartView(m_pChart))
@@ -28,6 +28,11 @@ Diagram::~Diagram()
     delete m_pChart;
     delete m_pYAxis;
     delete m_pChartView;
+}
+
+void Diagram::OnClose()
+{
+    close();
 }
 
 void Diagram::initGUI()

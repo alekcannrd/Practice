@@ -40,7 +40,7 @@ void MainWindow::initGUI(){
 void MainWindow::createConnections()
 {
 
-        connect(m_qlButtonList[0],&QPushButton::clicked,this,MainWindow::OnAdd);
+    connect(m_qlButtonList[0],&QPushButton::clicked,this,MainWindow::OnAdd);
         connect(m_qlButtonList[1],&QPushButton::clicked,this,MainWindow::OnDelete);
         connect(m_qlButtonList[2],&QPushButton::clicked,this,MainWindow::OnChange);
         connect(m_qlButtonList[8],&QPushButton::clicked,this,MainWindow::OnQuit);
@@ -48,7 +48,7 @@ void MainWindow::createConnections()
         connect(m_qlButtonList[6],&QPushButton::clicked,this,MainWindow::OnSave);
         connect(m_qlButtonList[4],&QPushButton::clicked,this,MainWindow::OnFilter);
         connect(m_qlButtonList[3],&QPushButton::clicked,this,MainWindow::OnSort);
-        connect(m_qlButtonList[5],&QPushButton::clicked,this,MainWindow::OnGraphic());
+        connect(m_qlButtonList[5],&QPushButton::clicked,this,MainWindow::OnGraphic);
 }
 
 void MainWindow::createButtons()

@@ -10,7 +10,6 @@
 #include <QDoubleValidator>
 #include <QRegularExpressionValidator>
 #include "List.h"
-
 class AddMenu : public QDialog
 {
     Q_OBJECT
