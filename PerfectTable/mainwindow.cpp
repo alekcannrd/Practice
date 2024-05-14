@@ -48,6 +48,7 @@ void MainWindow::createConnections()
         connect(m_qlButtonList[6],&QPushButton::clicked,this,MainWindow::OnSave);
         connect(m_qlButtonList[4],&QPushButton::clicked,this,MainWindow::OnFilter);
         connect(m_qlButtonList[3],&QPushButton::clicked,this,MainWindow::OnSort);
+        connect(m_qlButtonList[5],&QPushButton::clicked,this,MainWindow::OnGraphic());
 }
 
 void MainWindow::createButtons()
@@ -246,5 +247,12 @@ void MainWindow::OnFilter()
 
     delete menu;
 
+}
+
+void MainWindow::OnGraphic()
+{
+    Diagram *diagram = new Diagram(m_pList);
+    diagram->exec();
+    delete diagram;
 }
 

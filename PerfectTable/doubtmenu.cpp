@@ -25,7 +25,7 @@ void DoubtMenu::initGUI()
     setMinimumSize(200,200);
     setWindowTitle("Вы уверены?");
     createButtons();
-    createConnections();
+
     setLayout(m_pMainLayout);
 }
 

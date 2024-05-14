@@ -17,6 +17,7 @@
 #include "sortmenu.h"
 #include "filteredtable.h"
 #include "filtermenu.h"
+#include "diagram.h"
 class MainWindow: public QWidget
 {
     Q_OBJECT
@@ -32,7 +33,7 @@ private slots:
     void OnSave();
     void OnSort();
     void OnFilter();
-//    void OnGraphic();
+    void OnGraphic();
 
 private:
     unsigned const m_cuColumnWidth{150};
