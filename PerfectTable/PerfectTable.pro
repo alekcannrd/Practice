@@ -16,12 +16,12 @@ SOURCES += \
     Item.cpp \
     List.cpp \
     addmenu.cpp \
-    changemenu.cpp \
     doubtmenu.cpp \
     filteredtable.cpp \
     filtermenu.cpp \
     main.cpp \
     mainwindow.cpp \
+    mychangemenu.cpp \
     sortmenu.cpp \
     tablewidget.cpp
 
@@ -30,12 +30,12 @@ HEADERS += \
     Item.h \
     List.h \
     addmenu.h \
-    changemenu.h \
     diagram.h \
     doubtmenu.h \
     filteredtable.h \
     filtermenu.h \
     mainwindow.h \
+    mychangemenu.h \
     sortmenu.h \
     tablewidget.h
 

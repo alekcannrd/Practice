@@ -148,7 +148,7 @@ void MainWindow::OnChange()
     int article = (m_pTable->item(curIndex,0)->text()).toInt();
     Item *changed = m_pList->findByArticle(article);
     bool accepted = false;
-    ChangeMenu* menu = new ChangeMenu(m_pList,changed,&accepted);
+    MyChangeMenu* menu = new MyChangeMenu(m_pList,changed,&accepted);
     menu->exec();
     if (accepted)
     {

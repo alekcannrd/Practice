@@ -27,7 +27,21 @@ public:
     void del(Item &deleted);
     void change(Item * before, Item * after);
     Item* findByArticle(int);
+    void sortByDefinition() {
+        std::sort(m_vItemList.begin(), m_vItemList.end(), [](Item a,Item b) { return(a.getDefinition()<b.getDefinition()); });
+    }
 
+//    void List::sortByRemain() {
+//        std::sort(m_vItemList.begin(), m_vItemList.end(), [](Item a, Item b) { return(a.getRemain() < b.getRemain()); });
+//    }
+
+//    void List::sortByDefinition() {
+//        std::sort(m_vItemList.begin(), m_vItemList.end(), [](Item a, Item b) { return(a.getDefinition() < b.getDefinition()); });
+//    }
+
+//    void List::sortByTime() {
+//        std::sort(m_vItemList.begin(), m_vItemList.end(), [](Item a, Item b) { return(a.getTime() < b.getTime()); });
+//    }
 	List();
 	List(std::vector<Item*> newList);
 	List(std::vector<Item> newList);

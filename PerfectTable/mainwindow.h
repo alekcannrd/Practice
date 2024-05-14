@@ -6,12 +6,11 @@
 #include "addmenu.h"
 #include "tablewidget.h"
 #include "doubtmenu.h"
-#include "changemenu.h"
+#include "mychangemenu.h"
 #include <QMenuBar>
 #include <QMenu>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QMainWindow>
 #include <QFileDialog>
 #include <QMessageBox>
 #include "sortmenu.h"
@@ -33,7 +32,7 @@ private slots:
     void OnSave();
     void OnSort();
     void OnFilter();
-    void OnGraphic();
+   void OnGraphic();
 
 private:
     unsigned const m_cuColumnWidth{150};
