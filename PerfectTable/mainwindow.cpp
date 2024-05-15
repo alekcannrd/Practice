@@ -15,12 +15,12 @@ MainWindow::~MainWindow(){}
 
 void MainWindow::initGUI(){
 
-    setMinimumSize(m_cuWindowWidth, 1000);
+   setMinimumSize(m_cuWindowWidth, 1000);
     setWindowTitle("Идеальная таблица");
     createButtons();
 
 
-    m_pTable->setGeometry(0,100,m_cuWindowWidth,800);
+m_pTable->setGeometry(0,100,m_cuWindowWidth,800);
 
     setupTable();
 
@@ -73,7 +73,7 @@ void MainWindow::setupTable()
     m_pTable->setColumnCount(static_cast<int>(TITLES::TITLE_SIZE));
     for (int i{};i<static_cast<int>(TITLES::TITLE_SIZE);++i)
     {
-        m_pTable->setColumnWidth(i,150);
+        m_pTable->setColumnWidth(i,m_cuColumnWidth);
         m_pTable->setHorizontalHeaderItem(i,new QTableWidgetItem{strTitleNames[i]});
     }
 

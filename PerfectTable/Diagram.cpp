@@ -37,7 +37,7 @@ void Diagram::OnClose()
 void Diagram::initGUI()
 {
     setWindowTitle("Диаграмма");
-    setMinimumSize(500,500);
+    setMinimumSize(750,750);
     setupDiagram();
     createButtons();
     setLayout(m_pMainLayout);
@@ -88,33 +88,51 @@ void Diagram::setupDiagram()
 
 
     auto prev = (*m_pList)[0].getDefinition();
-
-    int totalIncom{};
+    double TOTALIncom{};
+    double totalIncom{};
 
     for (size_t i{},total = m_pList->getSize(); i<total; ++i)
     {
+//
+        double incom{((*m_pList)[i].getPrice()-(*m_pList)[i].getCost())*(*m_pList)[i].getRemain()};
+        TOTALIncom+=incom;
        if(prev == (*m_pList)[i].getDefinition() and i!=total-1){
-           totalIncom += ((*m_pList)[i].getCost()-(*m_pList)[i].getPrice())*(*m_pList)[i].getRemain();
+           totalIncom += incom;
        }
-       else{
-           m_pSeries->append(prev,totalIncom);
-           totalIncom = ((*m_pList)[i].getCost()-(*m_pList)[i].getPrice())*(*m_pList)[i].getRemain();
-           prev = (*m_pList)[i].getDefinition();
-       }
+       if(prev == (*m_pList)[i].getDefinition() and i==total-1){
+               totalIncom+=incom;
+               m_pSeries->append(prev + " " + QString::number(qRound(totalIncom)),qRound(totalIncom));
+           }
+        if (prev != (*m_pList)[i].getDefinition() and i==total-1){
+           m_pSeries->append(prev + " " + QString::number(qRound(totalIncom)),qRound(totalIncom));
+           totalIncom = incom;
+           m_pSeries->append((*m_pList)[i].getDefinition() + " " + QString::number(qRound(totalIncom)),qRound(totalIncom));
+        }
+        if (prev != (*m_pList)[i].getDefinition() and i!=total-1){
+            m_pSeries->append(prev + " " + QString::number(qRound(totalIncom)),qRound(totalIncom));
+            totalIncom = incom;
+            prev = (*m_pList)[i].getDefinition();
+        }
+
     }
 
 
-    m_pChart->setTitle("моя диаграмма");
-    m_pChart->legend()->setVisible(true);
 
+    TOTALIncom = qRound(TOTALIncom);
+    m_pSeries->setLabelsVisible(true);
+
+    m_pChart->setTitle("Диаграмма прибавочной стоимости по расположению на складе");
+
+    m_pChart->legend()->setVisible(false);
     m_pChart->addSeries(m_pSeries);
 
     m_pChart->setAnimationOptions(QChart::SeriesAnimations);
 
-
-
-
     m_pChartView->setRenderHint(QPainter::Antialiasing);
 
+    auto help = new QLabel{"Диаграмма отражает прибыль магазина, извлеченную из продажи всех товаров на конкретной полке.\nОбщая прибыль составит: " + QString::number(TOTALIncom)};
+
     m_pMainLayout->addWidget(m_pChartView);
+    m_pMainLayout->addWidget(help);
 }
+
