@@ -5,11 +5,10 @@ Diagram::Diagram(List *list, QDialog *parent):
     QDialog(parent),
     m_pMainLayout(new QVBoxLayout(this)),
     m_pList(list),
-    m_pSeries(new QBarSeries(this)),
     m_pChart(new QChart()),
-    m_pYAxis(new QValueAxis(this)),
-    m_pChartView(new QChartView(m_pChart)),
-    m_pBars(new std::vector<QBarSet*>)
+    m_pSeries(new QPieSeries(this)),
+    m_pChartView(new QChartView(m_pChart))
+//    m_pBars(new std::vector<QBarSet*>)
 {
     initGUI();
     createConnections();
@@ -86,21 +85,33 @@ void Diagram::setupDiagram()
 {
 
     m_pList->sortByDefinition();
+
+
+    auto prev = (*m_pList)[0].getDefinition();
+
+    int totalIncom{};
+
     for (size_t i{},total = m_pList->getSize(); i<total; ++i)
     {
-        auto
+       if(prev == (*m_pList)[i].getDefinition() and i!=total-1){
+           totalIncom += ((*m_pList)[i].getCost()-(*m_pList)[i].getPrice())*(*m_pList)[i].getRemain();
+       }
+       else{
+           m_pSeries->append(prev,totalIncom);
+           totalIncom = ((*m_pList)[i].getCost()-(*m_pList)[i].getPrice())*(*m_pList)[i].getRemain();
+           prev = (*m_pList)[i].getDefinition();
+       }
     }
 
 
+    m_pChart->setTitle("моя диаграмма");
+    m_pChart->legend()->setVisible(true);
+
     m_pChart->addSeries(m_pSeries);
-    m_pChart->setTitle("Диаграмма");
+
     m_pChart->setAnimationOptions(QChart::SeriesAnimations);
 
-    m_pChart->addAxis(m_pYAxis, Qt::AlignLeft);
-    m_pSeries->attachAxis(m_pYAxis);
 
-    m_pChart->legend()->setVisible(true);
-    m_pChart->legend()->setAlignment(Qt::AlignBottom);
 
 
     m_pChartView->setRenderHint(QPainter::Antialiasing);

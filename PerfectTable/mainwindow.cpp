@@ -144,22 +144,35 @@ void MainWindow::OnDelete()
 
 void MainWindow::OnChange()
 {
-    int curIndex = m_pTable->currentRow();
-    int article = (m_pTable->item(curIndex,0)->text()).toInt();
-    Item *changed = m_pList->findByArticle(article);
-    bool accepted = false;
-    MyChangeMenu* menu = new MyChangeMenu(m_pList,changed,&accepted);
-    menu->exec();
-    if (accepted)
+    QList<QTableWidgetItem*> selected = m_pTable->selectedItems();
+
+    if (selected.empty())
     {
-
-
-        for(int j = 0; j < static_cast<int>(TITLES::TITLE_SIZE); ++j)
+        QMessageBox::warning(this,"Ошибка","Редактирование невозможно: не выделен элемент",QMessageBox::Cancel);
+    }
+    if (m_pList->getSize()>0)
+    {
+        int curIndex = m_pTable->currentRow();
+        int article = (m_pTable->item(curIndex,0)->text()).toInt();
+        Item *changed = m_pList->findByArticle(article);
+        bool accepted = false;
+        MyChangeMenu* menu = new MyChangeMenu(m_pList,changed,&accepted);
+        menu->exec();
+        if (accepted)
         {
 
-            QTableWidgetItem* item = m_pTable->item(curIndex,j);
-            item->setData(Qt::EditRole,(*m_pList)[curIndex][j]);
+
+            for(int j = 0; j < static_cast<int>(TITLES::TITLE_SIZE); ++j)
+            {
+
+                QTableWidgetItem* item = m_pTable->item(curIndex,j);
+                item->setData(Qt::EditRole,(*m_pList)[curIndex][j]);
+            }
         }
+    }
+    else
+    {
+        QMessageBox::warning(this,"Ошибка","Редактирование невозможно: пустой список",QMessageBox::Cancel);
     }
 }
 

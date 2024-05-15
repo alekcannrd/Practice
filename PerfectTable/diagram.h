@@ -17,14 +17,12 @@ private:
    QPushButton* m_pCloseBtn;
     QVBoxLayout* m_pMainLayout;
     List* m_pList;
-//    std::vector<QBarSet*>* m_pBars;
-//    QBarSeries *m_pSeries;
-//    QChart* m_pChart;
-//    QValueAxis* m_pYAxis;
+    QChart* m_pChart;
+    QPieSeries* m_pSeries;
     void initGUI();
     void createButtons();
     void createConnections();
     QChartView *m_pChartView;
-//    void setupDiagram();
+    void setupDiagram();
 };
 

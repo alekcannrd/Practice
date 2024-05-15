@@ -317,6 +317,7 @@ Makefile: PerfectTable.pro C:/Felgo/Felgo/mingw_64/mkspecs/win32-g++/qmake.conf 
 		C:/Felgo/Felgo/mingw_64/mkspecs/features/qt_config.prf \
 		C:/Felgo/Felgo/mingw_64/mkspecs/win32-g++/qmake.conf \
 		C:/Felgo/Felgo/mingw_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		C:/Felgo/Felgo/mingw_64/mkspecs/features/exclusive_builds.prf \
 		C:/Felgo/Felgo/mingw_64/mkspecs/features/toolchain.prf \
 		C:/Felgo/Felgo/mingw_64/mkspecs/features/default_pre.prf \
@@ -349,7 +350,6 @@ Makefile: PerfectTable.pro C:/Felgo/Felgo/mingw_64/mkspecs/win32-g++/qmake.conf 
 		C:/Felgo/Felgo/mingw_64/lib/Qt6Gui.prl \
 		C:/Felgo/Felgo/mingw_64/lib/Qt6Core.prl \
 		C:/Felgo/Felgo/mingw_64/lib/Qt6EntryPoint.prl \
-		.qmake.stash \
 		C:/Felgo/Felgo/mingw_64/mkspecs/features/build_pass.prf
 	$(QMAKE) -o Makefile PerfectTable.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
 C:/Felgo/Felgo/mingw_64/mkspecs/features/spec_pre.prf:
@@ -599,6 +599,7 @@ C:/Felgo/Felgo/mingw_64/mkspecs/features/qt_functions.prf:
 C:/Felgo/Felgo/mingw_64/mkspecs/features/qt_config.prf:
 C:/Felgo/Felgo/mingw_64/mkspecs/win32-g++/qmake.conf:
 C:/Felgo/Felgo/mingw_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 C:/Felgo/Felgo/mingw_64/mkspecs/features/exclusive_builds.prf:
 C:/Felgo/Felgo/mingw_64/mkspecs/features/toolchain.prf:
 C:/Felgo/Felgo/mingw_64/mkspecs/features/default_pre.prf:
@@ -631,7 +632,6 @@ C:/Felgo/Felgo/mingw_64/lib/Qt6OpenGL.prl:
 C:/Felgo/Felgo/mingw_64/lib/Qt6Gui.prl:
 C:/Felgo/Felgo/mingw_64/lib/Qt6Core.prl:
 C:/Felgo/Felgo/mingw_64/lib/Qt6EntryPoint.prl:
-.qmake.stash:
 C:/Felgo/Felgo/mingw_64/mkspecs/features/build_pass.prf:
 qmake: FORCE
 	@$(QMAKE) -o Makefile PerfectTable.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
