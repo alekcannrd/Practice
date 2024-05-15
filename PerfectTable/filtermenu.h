@@ -15,18 +15,18 @@ class FilterMenu: public QDialog
 public:
     FilterMenu(int *choice,QString* text,QDialog *parent = nullptr);
 private slots:
-    void OnAccept();
-    void OnRefuse();
+    void OnAccept();//слот "принять"
+    void OnRefuse();//слот "отмена"
 private:
-    void initGUI();
-    void createButtons();
-    void createLines();
-    void createConnections();
+    void initGUI();//инициализация интерфейса
+    void createButtons();//создание кнопок
+    void createLines();//создание полей ввода
+    void createConnections();//создание связей между кнопками и слотами
     QString* m_pText;
-    QVBoxLayout *m_pMainLayout;
-    QPushButton* m_pAcceptBtn;
-    QPushButton* m_pRefuseBtn;
-    QLineEdit* m_pLineEdit;
-    QComboBox* m_pComboBox;
-    int *m_piChoice;
+    QVBoxLayout *m_pMainLayout;//макет окна
+    QPushButton* m_pAcceptBtn;//кнопка "принять"
+    QPushButton* m_pRefuseBtn;//кнопка "отмена"
+    QLineEdit* m_pLineEdit;//окно ввода
+    QComboBox* m_pComboBox;//выпадающий список
+    int *m_piChoice;//выбранное поле для поиска
 };

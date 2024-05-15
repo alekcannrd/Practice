@@ -15,12 +15,12 @@ MainWindow::~MainWindow(){}
 
 void MainWindow::initGUI(){
 
-   setMinimumSize(m_cuWindowWidth, 1000);
-    setWindowTitle("Идеальная таблица");
+    setMinimumSize(m_cuWindowWidth, 1000);
+    setWindowTitle("Продовольственный магазин");
     createButtons();
 
 
-m_pTable->setGeometry(0,100,m_cuWindowWidth,800);
+    m_pTable->setGeometry(0,100,m_cuWindowWidth,800);
 
     setupTable();
 
@@ -49,6 +49,8 @@ void MainWindow::createConnections()
         connect(m_qlButtonList[4],&QPushButton::clicked,this,MainWindow::OnFilter);
         connect(m_qlButtonList[3],&QPushButton::clicked,this,MainWindow::OnSort);
         connect(m_qlButtonList[5],&QPushButton::clicked,this,MainWindow::OnGraphic);
+        connect(m_pTable,SIGNAL(cellDoubleClicked(int,int)),this,SLOT(ChangeItem(int,int)));
+
 }
 
 void MainWindow::createButtons()
@@ -67,7 +69,7 @@ void MainWindow::createButtons()
 
 }
 
-void MainWindow::setupTable()
+void MainWindow::setupTable()//создание и заполнение таблицы данными по умолчанию
 {
     m_pTable->setRowCount(m_pList->getSize());
     m_pTable->setColumnCount(static_cast<int>(TITLES::TITLE_SIZE));
@@ -85,7 +87,7 @@ void MainWindow::setupTable()
             QTableWidgetItem *item = new QTableWidgetItem;
             item->setData(Qt::EditRole,(*m_pList)[i][j]);
             m_pTable->setItem(i, j, item);
-            item->setFlags(item->flags() &~ Qt::ItemIsEditable);
+//            item->setFlags(item->flags() &~ Qt::ItemIsEditable);
         }
     }
 }
@@ -102,7 +104,7 @@ void MainWindow::OnAdd()
     AddMenu *menu = new AddMenu(m_pList);
 
     menu->exec();
-    if (m_pList->getSize()!=sizeBefore)
+    if (m_pList->getSize()!=sizeBefore)//проверка размера массива данных
     {
         m_pTable->insertRow(m_pList->getSize()-1);
         for(int j = 0; j < static_cast<int>(TITLES::TITLE_SIZE); ++j)
@@ -123,7 +125,7 @@ void MainWindow::OnDelete()
     bool accepted;
     DoubtMenu* menu = new DoubtMenu(&accepted);
     menu->exec();
-    if (accepted)
+    if (accepted)//подтверждено ли удаление
     {
         if (m_pList->getSize()>0)
         {
@@ -146,7 +148,7 @@ void MainWindow::OnChange()
 {
     QList<QTableWidgetItem*> selected = m_pTable->selectedItems();
 
-    if (selected.empty())
+    if (selected.empty())//проверка размера массива данных
     {
         QMessageBox::warning(this,"Ошибка","Редактирование невозможно: не выделен элемент",QMessageBox::Cancel);
     }

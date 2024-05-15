@@ -10,18 +10,18 @@ class FilteredTable: public QDialog
 public:
     FilteredTable(List* list,QDialog *parent = nullptr);
 private slots:
-    void OnClose();
+    void OnClose();//слот "закрыть"
 private:
     List* m_pList;
-    QPushButton* m_pCloseBtn;
-    QVBoxLayout* m_pMainLayout;
-    TableWidget* m_pTable;
-    void createButtons();
-    void createConnections();
+    QPushButton* m_pCloseBtn;//кнопка "закрыть"
+    QVBoxLayout* m_pMainLayout;//макет окна
+    TableWidget* m_pTable;//таблица
+    void createButtons();//создание кнопок
+    void createConnections();//создание связей между кнопками и слотами
 
-    unsigned const m_cuColumnWidth{150};
-    unsigned const m_cuWindowWidth{m_cuColumnWidth*static_cast<int>(TITLES::TITLE_SIZE)+50};
-    void initGUI();
-    void setupTable();
+    unsigned const m_cuColumnWidth{150};//ширина колонны
+    unsigned const m_cuWindowWidth{m_cuColumnWidth*static_cast<int>(TITLES::TITLE_SIZE)+50};//ширина окна
+    void initGUI();//инициализация интерфейса
+    void setupTable();//создание таблицы
 };
 

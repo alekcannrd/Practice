@@ -18,26 +18,26 @@ public:
     explicit MyChangeMenu(List *q,Item* item, bool *accepted,QDialog *parent = nullptr);
     ~MyChangeMenu();
 protected slots:
-    void OnAccept();
-    void OnRefuse();
+    void OnAccept();//слот "принять"
+    void OnRefuse();//слот "отмена"
 
 protected:
-    QFormLayout* m_pMainLayout{new QFormLayout(this)};
-    void createButtons();
-    void createConnections();
-    void createLines();
-    QLineEdit* m_pNameLine;
-    QLineEdit* m_pCostLine;
-    QLineEdit* m_pPriceLine;
+    QFormLayout* m_pMainLayout{new QFormLayout(this)};//макет окна
+    void createButtons();//создание кнопок
+    void createConnections();//создание связей между кнопками и слотами
+    void createLines();//создание полей для ввода
+    QLineEdit* m_pNameLine;//поле наименования
+    QLineEdit* m_pCostLine;//поле стоимости
+    QLineEdit* m_pPriceLine;//поле цены
 
-    QLineEdit* m_pDefinitionLine;
-    QLineEdit* m_pRemainLine;
-    QLineEdit* m_pExpDateLine;
-    QLineEdit* m_pNumOfPartyLine;
+    QLineEdit* m_pDefinitionLine;//поле размещения на складе
+    QLineEdit* m_pRemainLine;//поле остатка на складе
+    QLineEdit* m_pExpDateLine;//поле срока годности
+    QLineEdit* m_pNumOfPartyLine;//поле номера партии
 
-    void initGUI();
-    QPushButton* m_pRefuse;
-    QPushButton* m_pAccept;
+    void initGUI();//инициализация интерфейса
+    QPushButton* m_pRefuse;//кнопка "отмена"
+    QPushButton* m_pAccept;//кнопка "подтвердить"
 
     List* m_pList;
     Item* m_pItem;

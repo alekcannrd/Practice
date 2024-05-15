@@ -1,8 +1,10 @@
 #include "addmenu.h"
 void AddMenu::initGUI()
 {
+    //установка размеров окна
     setMinimumSize(250,250);
-    setWindowTitle("AddMenu");
+    setWindowTitle("Добавить элемент");
+
     createLines();
     createButtons();
     setLayout(m_pMainLayout);
@@ -30,7 +32,7 @@ AddMenu::~AddMenu()
 void AddMenu::OnAccept()
 {
     QDate date = QDate::fromString(m_pExpDateLine->text(),"dd.MM.yyyy");
-    if (date.isValid())
+    if (date.isValid())//проверка даты на валидность
     {m_pList->add(m_pList->getNextId(),m_pNameLine->text(),m_pCostLine->text().toDouble(),m_pPriceLine->text().toDouble(),m_pDefinitionLine->text(),m_pRemainLine->text().toInt(),date,m_pNumOfPartyLine->text().toInt());
     this->close();}
     else
@@ -71,7 +73,7 @@ void AddMenu::createLines()
     m_pRemainLine = new QLineEdit(this);
     m_pExpDateLine = new QLineEdit(this);
     m_pNumOfPartyLine = new QLineEdit(this);
-
+//создание и установка валидаторов
     QValidator *iValidator = new QIntValidator(this);
     QValidator *dValidator = new QDoubleValidator(this);
     QValidator *timeValidator = new QRegularExpressionValidator(QRegularExpression("^[0-9]{2}.[0-9]{2}.[0-9]{4}$"));
@@ -81,7 +83,7 @@ void AddMenu::createLines()
     m_pRemainLine->setValidator(iValidator);
     m_pNumOfPartyLine->setValidator(iValidator);
     m_pExpDateLine->setValidator(timeValidator);
-
+//размещение полей на макете
     m_pMainLayout->addRow(strTitleNames[1],m_pNameLine);
     m_pMainLayout->addRow(strTitleNames[2],m_pCostLine);
     m_pMainLayout->addRow(strTitleNames[3],m_pPriceLine);

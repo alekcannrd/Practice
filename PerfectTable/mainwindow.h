@@ -24,28 +24,28 @@ public:
     MainWindow(List *q,QWidget *parent = nullptr);
     ~MainWindow();
 private slots:
-    void OnQuit();
-    void OnAdd();
-    void OnDelete();
-    void OnChange();
-    void OnLoad();
-    void OnSave();
-    void OnSort();
-    void OnFilter();
-   void OnGraphic();
+    void OnQuit();//слот "закрыть"
+    void OnAdd();//слот "добавить"
+    void OnDelete();//слот "удалить"
+    void OnChange();//слот "редактировать"
+    void OnLoad();//слот "загрузить"
+    void OnSave();//слот "сохранить"
+    void OnSort();//слот "сортировать"
+    void OnFilter();//слот "фильтровать"
+   void OnGraphic();//слот "график"
 
 private:
-    unsigned const m_cuColumnWidth{150};
-    unsigned const m_cuWindowWidth{m_cuColumnWidth*static_cast<int>(TITLES::TITLE_SIZE)+50};
+    unsigned const m_cuColumnWidth{150};//ширина колонны
+    unsigned const m_cuWindowWidth{m_cuColumnWidth*static_cast<int>(TITLES::TITLE_SIZE)+50};//ширина окна
     List* m_pList;
-    QList<QPushButton*> m_qlButtonList;
-    QVBoxLayout *m_pMainLayout{new QVBoxLayout(this)};
-    TableWidget* m_pTable;
-    void initGUI();
-    void createConnections();
-    void setupWindow();
-    void createButtons();
-    void defineSlots();
-    void setupTable();
+    QList<QPushButton*> m_qlButtonList;//список кнопок
+    QVBoxLayout *m_pMainLayout{new QVBoxLayout(this)};//макет окна
+    TableWidget* m_pTable;//таблица
+    void initGUI();//инициализация интерфейса
+    void createConnections();//создание связей между слотами и кнопками
+    void setupWindow();//создать окно
+    void createButtons();//создать кнопки
+
+    void setupTable();//установка таблицы
 };
 

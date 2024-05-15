@@ -12,14 +12,14 @@
 class Item
 {
 private:
-    unsigned m_uArticle{};
-    QString m_strName{};
-	double m_dCost{};
-	double m_dPrice{};
-    QString m_strDefinition{};
-	unsigned int m_iRemain{};
-    QDate m_dateTime{};
-	unsigned int m_iNumOfParty{};
+    unsigned m_uArticle{};//Артикул
+    QString m_strName{};//Наименование
+    double m_dCost{};//Закупочная стоимость
+    double m_dPrice{};//Цена
+    QString m_strDefinition{};//Размещение на складе
+    unsigned int m_iRemain{};//Остаток на складе
+    QDate m_dateTime{};//Срок годности
+    unsigned int m_iNumOfParty{};//Номер партии
 
 public:
 	Item();

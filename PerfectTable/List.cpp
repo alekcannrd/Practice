@@ -90,8 +90,12 @@ Item* List::findByArticle(int article)
 	return a;
 }
 
+void List::sortByDefinition() {
+    std::sort(m_vItemList.begin(), m_vItemList.end(), [](Item a,Item b) { return(a.getDefinition()<b.getDefinition()); });
+}
+
 void List::change(Item* before, Item* after) {
-	before->copy(after);
+    before->copy(after);
 }
 
 
