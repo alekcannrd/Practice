@@ -115,7 +115,6 @@ void Diagram::setupDiagram()
 
     TOTALIncom = qRound(TOTALIncom);
     m_pSeries->setLabelsVisible(true);
-//    m_pSeries->set
 
     m_pChart->setTitle("Диаграмма прибавочной стоимости по расположению на складе");
 

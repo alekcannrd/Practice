@@ -41,7 +41,7 @@ void MyChangeMenu::OnAccept()
     else
     {
 
-        QMessageBox::warning(this,tr("Ошибка"),tr("Некорректная дата"),QMessageBox::Cancel);
+        QMessageBox::warning(this,tr("Ошибка"),tr("Некорректная дата"),"Ок");
     }
 
 

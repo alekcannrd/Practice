@@ -42,13 +42,13 @@ void MainWindow::createConnections()
 
     connect(m_qlButtonList[0],&QPushButton::clicked,this,MainWindow::OnAdd);
         connect(m_qlButtonList[1],&QPushButton::clicked,this,MainWindow::OnDelete);
-        connect(m_qlButtonList[2],&QPushButton::clicked,this,MainWindow::OnChange);
-        connect(m_qlButtonList[8],&QPushButton::clicked,this,MainWindow::OnQuit);
-        connect(m_qlButtonList[7],&QPushButton::clicked,this,MainWindow::OnLoad);
-        connect(m_qlButtonList[6],&QPushButton::clicked,this,MainWindow::OnSave);
-        connect(m_qlButtonList[4],&QPushButton::clicked,this,MainWindow::OnFilter);
-        connect(m_qlButtonList[3],&QPushButton::clicked,this,MainWindow::OnSort);
-        connect(m_qlButtonList[5],&QPushButton::clicked,this,MainWindow::OnGraphic);
+//        connect(m_qluttonList[2],&QPushButton::clicked,this,MainWindow::OnChange);
+        connect(m_qlButtonList[7],&QPushButton::clicked,this,MainWindow::OnQuit);
+        connect(m_qlButtonList[6],&QPushButton::clicked,this,MainWindow::OnLoad);
+        connect(m_qlButtonList[5],&QPushButton::clicked,this,MainWindow::OnSave);
+        connect(m_qlButtonList[3],&QPushButton::clicked,this,MainWindow::OnFilter);
+        connect(m_qlButtonList[2],&QPushButton::clicked,this,MainWindow::OnSort);
+        connect(m_qlButtonList[4],&QPushButton::clicked,this,MainWindow::OnGraphic);
         connect(m_pTable,m_pTable->cellChanged,this,&MainWindow::OnItemChanged);
 
 
@@ -58,7 +58,7 @@ void MainWindow::createButtons()
 {
     m_qlButtonList.push_back(new QPushButton("Добавить",this));
     m_qlButtonList.push_back(new QPushButton("Удалить",this));
-    m_qlButtonList.push_back(new QPushButton("Редактировать",this));
+//    m_qlButtonList.push_back(new QPushButton("Редактировать",this));
     m_qlButtonList.push_back(new QPushButton("Отсортировать",this));
     m_qlButtonList.push_back(new QPushButton("Найти",this));
     m_qlButtonList.push_back(new QPushButton("График",this));
@@ -140,44 +140,44 @@ void MainWindow::OnDelete()
         }
         else
         {
-            QMessageBox::warning(this,"Ошибка","Удаление невозможно: пустой список",QMessageBox::Cancel);
+            QMessageBox::warning(this,"Ошибка","Удаление невозможно: пустой список","Ок");
         }
     };
 }
 
-void MainWindow::OnChange()
-{
-    QList<QTableWidgetItem*> selected = m_pTable->selectedItems();
+//void MainWindow::OnChange()
+//{
+//    QList<QTableWidgetItem*> selected = m_pTable->selectedItems();
 
-    if (selected.empty())//проверка размера массива данных
-    {
-        QMessageBox::warning(this,"Ошибка","Редактирование невозможно: не выделен элемент",QMessageBox::Cancel);
-    }
-    if (m_pList->getSize()>0)
-    {
-        int curIndex = m_pTable->currentRow();
-        int article = (m_pTable->item(curIndex,0)->text()).toInt();
-        Item *changed = m_pList->findByArticle(article);
-        bool accepted = false;
-        MyChangeMenu* menu = new MyChangeMenu(m_pList,changed,&accepted);
-        menu->exec();
-        if (accepted)
-        {
+//    if (selected.empty())//проверка размера массива данных
+//    {
+//        QMessageBox::warning(this,"Ошибка","Редактирование невозможно: не выделен элемент","Ок");
+//    }
+//    if (m_pList->getSize()>0)
+//    {
+//        int curIndex = m_pTable->currentRow();
+//        int article = (m_pTable->item(curIndex,0)->text()).toInt();
+//        Item *changed = m_pList->findByArticle(article);
+//        bool accepted = false;
+//        MyChangeMenu* menu = new MyChangeMenu(m_pList,changed,&accepted);
+//        menu->exec();
+//        if (accepted)
+//        {
 
 
-            for(int j = 0; j < static_cast<int>(TITLES::TITLE_SIZE); ++j)
-            {
+//            for(int j = 0; j < static_cast<int>(TITLES::TITLE_SIZE); ++j)
+//            {
 
-                QTableWidgetItem* item = m_pTable->item(curIndex,j);
-                item->setData(Qt::EditRole,(*m_pList)[curIndex][j]);
-            }
-        }
-    }
-    else
-    {
-        QMessageBox::warning(this,"Ошибка","Редактирование невозможно: пустой список",QMessageBox::Cancel);
-    }
-}
+//                QTableWidgetItem* item = m_pTable->item(curIndex,j);
+//                item->setData(Qt::EditRole,(*m_pList)[curIndex][j]);
+//            }
+//        }
+//    }
+//    else
+//    {
+//        QMessageBox::warning(this,"Ошибка","Редактирование невозможно: пустой список","Ок");
+//    }
+//}
 
 void MainWindow::OnLoad()
 {
@@ -231,10 +231,18 @@ void MainWindow::OnSort()
     int choice;
     SortMenu* menu = new SortMenu(&choice);
     menu->exec();
-    if (choice<static_cast<int>(TITLES::TITLE_SIZE))
+    if (choice!=-1)
     {
-        m_pTable->sortItems(choice);
-    };
+        if (choice<static_cast<int>(TITLES::TITLE_SIZE))
+        {
+            m_pTable->sortItems(choice);
+        }
+        else
+        {
+            choice -= 8;
+            m_pTable->sortItems(choice,Qt::DescendingOrder);
+        }
+    }
 }
 
 void MainWindow::OnFilter()
@@ -270,5 +278,22 @@ void MainWindow::OnGraphic()
     Diagram *diagram = new Diagram(*m_pList);
     diagram->exec();
     delete diagram;
+}
+
+void MainWindow::OnItemChanged(int row, int column)
+{
+    QVariant data = /*(*m_pList)[row][column] = */m_pTable->item(row,column)->data(Qt::EditRole);
+    Item* item = m_pList->findByArticle(m_pTable->item(row,0)->data(Qt::EditRole).toUInt());
+    switch (column)
+    {
+    case static_cast<int>(TITLES::article): item->setArticle(data.toUInt()); break;
+    case static_cast<int>(TITLES::Cost): item->setCost(data.toDouble()); break;
+    case static_cast<int>(TITLES::Price): item->setPrice(data.toDouble()); break;
+    case static_cast<int>(TITLES::Definition): item->setDefinition(data.toString()); break;
+    case static_cast<int>(TITLES::Name): item->setName(data.toString()); break;
+    case static_cast<int>(TITLES::NumOfParty): item->setNum(data.toUInt()); break;
+    case static_cast<int>(TITLES::Remain): item->setRemain(data.toUInt()); break;
+    case static_cast<int>(TITLES::Time): item->setTime(data.toDate()); break;
+    }
 }
 

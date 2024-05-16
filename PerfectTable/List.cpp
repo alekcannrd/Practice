@@ -80,7 +80,7 @@ void List::del(Item& deleted)
 Item* List::findByArticle(int article)
 {
 	Item* a{nullptr};
-    for (size_t i{}; i < m_iSize; ++i)
+	for (int i{}; i < m_iSize; ++i)
 	{
 		if (article == m_vItemList[i].getArticle())
 		{

@@ -7,6 +7,7 @@
 #include <QHBoxLayout>
 #include <QLineEdit>
 #include <QString>
+#include <QLabel>
 
 
 class FilterMenu: public QDialog
