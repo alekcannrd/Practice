@@ -93,7 +93,7 @@ void Diagram::setupDiagram()
 
     for (size_t i{},total = m_pList->getSize(); i<total; ++i)
     {
-//
+
         double incom{((*m_pList)[i].getPrice()-(*m_pList)[i].getCost())*(*m_pList)[i].getRemain()};
         TOTALIncom+=incom;
        if(prev == (*m_pList)[i].getDefinition() and i!=total-1){
@@ -120,6 +120,7 @@ void Diagram::setupDiagram()
 
     TOTALIncom = qRound(TOTALIncom);
     m_pSeries->setLabelsVisible(true);
+//    m_pSeries->set
 
     m_pChart->setTitle("Диаграмма прибавочной стоимости по расположению на складе");
 

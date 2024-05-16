@@ -4,6 +4,7 @@
 #include <QVBoxLayout>
 #include <QtCharts>
 #include "List.h"
+
 class Diagram: public QDialog
 {
     Q_OBJECT
