@@ -32,7 +32,23 @@ private slots:
     void OnSave();//слот "сохранить"
     void OnSort();//слот "сортировать"
     void OnFilter();//слот "фильтровать"
-   void OnGraphic();//слот "график"
+    void OnGraphic();//слот "график"
+    void OnItemChanged(int row,int column)
+    {
+        QVariant data = /*(*m_pList)[row][column] = */m_pTable->item(row,column)->data(Qt::EditRole);
+        Item* item = m_pList->findByArticle(m_pTable->item(row,0)->data(Qt::EditRole).toUInt());
+        switch (column)
+        {
+        case static_cast<int>(TITLES::article): item->setArticle(data.toUInt()); break;
+        case static_cast<int>(TITLES::Cost): item->setCost(data.toDouble()); break;
+        case static_cast<int>(TITLES::Price): item->setPrice(data.toDouble()); break;
+        case static_cast<int>(TITLES::Definition): item->setDefinition(data.toString()); break;
+        case static_cast<int>(TITLES::Name): item->setName(data.toString()); break;
+        case static_cast<int>(TITLES::NumOfParty): item->setNum(data.toUInt()); break;
+        case static_cast<int>(TITLES::Remain): item->setRemain(data.toUInt()); break;
+        case static_cast<int>(TITLES::Time): item->setTime(data.toDate()); break;
+        }
+    }
 
 private:
     unsigned const m_cuColumnWidth{150};//ширина колонны

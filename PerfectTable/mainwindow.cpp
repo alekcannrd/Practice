@@ -49,7 +49,8 @@ void MainWindow::createConnections()
         connect(m_qlButtonList[4],&QPushButton::clicked,this,MainWindow::OnFilter);
         connect(m_qlButtonList[3],&QPushButton::clicked,this,MainWindow::OnSort);
         connect(m_qlButtonList[5],&QPushButton::clicked,this,MainWindow::OnGraphic);
-        connect(m_pTable,SIGNAL(cellDoubleClicked(int,int)),this,SLOT(ChangeItem(int,int)));
+        connect(m_pTable,m_pTable->cellChanged,this,&MainWindow::OnItemChanged);
+
 
 }
 
@@ -266,7 +267,7 @@ void MainWindow::OnFilter()
 
 void MainWindow::OnGraphic()
 {
-    Diagram *diagram = new Diagram(m_pList);
+    Diagram *diagram = new Diagram(*m_pList);
     diagram->exec();
     delete diagram;
 }

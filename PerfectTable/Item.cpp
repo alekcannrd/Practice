@@ -13,7 +13,7 @@ QVariant Item::operator [](int index)
     case 2: return m_dCost;break;
     case 3: return m_dPrice;break;
         case 4: return (m_strDefinition); break;
-    case 5: return m_iRemain;break;
+    case 5: return m_uRemain;break;
     case 6: return m_dateTime;break;
     case 7: return m_iNumOfParty;break;
     default: return "error";
@@ -23,7 +23,7 @@ QVariant Item::operator [](int index)
 QTextStream &operator<<(QTextStream &out, Item &item)
 {
 
-    out << item.m_uArticle << ';' << item.m_strName << ';' << item.m_dCost << ';' << item.m_dPrice << ';' << item.m_strDefinition << ';' << item.m_iRemain << ';' << item.m_dateTime.toString("dd.MM.yyyy") << ';' << item.m_iNumOfParty << '\n';
+    out << item.m_uArticle << ';' << item.m_strName << ';' << item.m_dCost << ';' << item.m_dPrice << ';' << item.m_strDefinition << ';' << item.m_uRemain << ';' << item.m_dateTime.toString("dd.MM.yyyy") << ';' << item.m_iNumOfParty << '\n';
     return out;
 }
 
@@ -38,7 +38,7 @@ QTextStream &operator>>(QTextStream &in, Item &item)
     return in;
 }
 
-Item::Item(int art, QString nm, double cst, double prc, QString df, int rm, QDate tm, int nop) : m_uArticle(art),m_strName(nm),m_dCost(cst),m_dPrice(prc),m_strDefinition(df),m_iRemain(rm),m_dateTime(tm),m_iNumOfParty(nop)
+Item::Item(int art, QString nm, double cst, double prc, QString df, int rm, QDate tm, int nop) : m_uArticle(art),m_strName(nm),m_dCost(cst),m_dPrice(prc),m_strDefinition(df),m_uRemain(rm),m_dateTime(tm),m_iNumOfParty(nop)
 {
 
 
@@ -51,7 +51,7 @@ void Item::copy(Item* after) {
     m_dCost = after->getCost();
     m_dPrice = after->getPrice();
     m_strDefinition = after->getDefinition();
-    m_iRemain = after->getRemain();
+    m_uRemain = after->getRemain();
     m_dateTime = after->getTime();
     m_iNumOfParty = after->getNumOfParty();
 }

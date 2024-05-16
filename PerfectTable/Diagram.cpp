@@ -1,10 +1,10 @@
 #include "diagram.h"
 
 
-Diagram::Diagram(List *list, QDialog *parent):
+Diagram::Diagram(List list, QDialog *parent):
     QDialog(parent),
     m_pMainLayout(new QVBoxLayout(this)),
-    m_pList(list),
+    m_List(list),
     m_pChart(new QChart()),
     m_pSeries(new QPieSeries(this)),
     m_pChartView(new QChartView(m_pChart))
@@ -18,14 +18,9 @@ Diagram::Diagram(List *list, QDialog *parent):
 //{
 //    delete m_pCloseBtn;
 //    delete m_pMainLayout;
-//    for (int i{},total = m_pBars->size();i<total;++i)
-//    {
-//        delete (*m_pBars)[i];
-//    }
-//    delete m_pBars;
+
 //    delete m_pSeries;
 //    delete m_pChart;
-//    delete m_pYAxis;
 //    delete m_pChartView;
 //}
 
@@ -58,10 +53,10 @@ void Diagram::createConnections()
 
 //void Diagram::setupDiagram()
 //{
-//    for (size_t i{},total = m_pList->getSize(); i<total; ++i)
+//    for (size_t i{},total = m_List->getSize(); i<total; ++i)
 //    {
-//        auto set = new QBarSet((*m_pList)[i].getName());
-//        *set << (*m_pList)[i].getCost() ;
+//        auto set = new QBarSet((*m_List)[i].getName());
+//        *set << (*m_List)[i].getCost() ;
 //        m_pBars->push_back(set);
 //        m_pSeries->append(set);
 //    }
@@ -84,34 +79,34 @@ void Diagram::createConnections()
 void Diagram::setupDiagram()
 {
 
-    m_pList->sortByDefinition();
+    m_List.sortByDefinition();
 
 
-    auto prev = (*m_pList)[0].getDefinition();
+    auto prev = m_List[0].getDefinition();
     double TOTALIncom{};
     double totalIncom{};
 
-    for (size_t i{},total = m_pList->getSize(); i<total; ++i)
+    for (size_t i{},total = m_List.getSize(); i<total; ++i)
     {
-//
-        double incom{((*m_pList)[i].getPrice()-(*m_pList)[i].getCost())*(*m_pList)[i].getRemain()};
+        //
+        double incom{((m_List)[i].getPrice()-(m_List)[i].getCost())*(m_List)[i].getRemain()};
         TOTALIncom+=incom;
-       if(prev == (*m_pList)[i].getDefinition() and i!=total-1){
-           totalIncom += incom;
-       }
-       if(prev == (*m_pList)[i].getDefinition() and i==total-1){
-               totalIncom+=incom;
-               m_pSeries->append(prev + " " + QString::number(qRound(totalIncom)),qRound(totalIncom));
-           }
-        if (prev != (*m_pList)[i].getDefinition() and i==total-1){
-           m_pSeries->append(prev + " " + QString::number(qRound(totalIncom)),qRound(totalIncom));
-           totalIncom = incom;
-           m_pSeries->append((*m_pList)[i].getDefinition() + " " + QString::number(qRound(totalIncom)),qRound(totalIncom));
+        if(prev == (m_List)[i].getDefinition() and i!=total-1){
+            totalIncom += incom;
         }
-        if (prev != (*m_pList)[i].getDefinition() and i!=total-1){
+        if(prev == (m_List)[i].getDefinition() and i==total-1){
+            totalIncom+=incom;
+            m_pSeries->append(prev + " " + QString::number(qRound(totalIncom)),qRound(totalIncom));
+        }
+        if (prev != (m_List)[i].getDefinition() and i==total-1){
             m_pSeries->append(prev + " " + QString::number(qRound(totalIncom)),qRound(totalIncom));
             totalIncom = incom;
-            prev = (*m_pList)[i].getDefinition();
+            m_pSeries->append((m_List)[i].getDefinition() + " " + QString::number(qRound(totalIncom)),qRound(totalIncom));
+        }
+        if (prev != (m_List)[i].getDefinition() and i!=total-1){
+            m_pSeries->append(prev + " " + QString::number(qRound(totalIncom)),qRound(totalIncom));
+            totalIncom = incom;
+            prev = (m_List)[i].getDefinition();
         }
 
     }

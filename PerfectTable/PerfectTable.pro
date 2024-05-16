@@ -16,7 +16,6 @@ SOURCES += \
     Item.cpp \
     List.cpp \
     addmenu.cpp \
-    changem.cpp \
     doubtmenu.cpp \
     filteredtable.cpp \
     filtermenu.cpp \
@@ -31,7 +30,6 @@ HEADERS += \
     Item.h \
     List.h \
     addmenu.h \
-    changem.h \
     diagram.h \
     doubtmenu.h \
     filteredtable.h \

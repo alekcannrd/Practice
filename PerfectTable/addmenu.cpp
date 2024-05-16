@@ -12,7 +12,7 @@ void AddMenu::initGUI()
 
 
 AddMenu::AddMenu(List *q, QDialog *parent) :
-    QDialog(parent), m_pList{q}
+    QDialog(parent), m_pList(q)
 {
     initGUI();
     createConnections();

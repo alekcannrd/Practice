@@ -8,7 +8,7 @@ class Diagram: public QDialog
 {
     Q_OBJECT
 public:
-    Diagram(List *list,QDialog *parent = nullptr);
+    Diagram(List list,QDialog *parent = nullptr);
 //    ~Diagram();
 
 private slots:
@@ -16,7 +16,7 @@ private slots:
 private:
    QPushButton* m_pCloseBtn;
     QVBoxLayout* m_pMainLayout;
-    List* m_pList;
+    List m_List;
     QChart* m_pChart;
     QPieSeries* m_pSeries;
     void initGUI();
