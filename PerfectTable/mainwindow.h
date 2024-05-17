@@ -34,9 +34,16 @@ private slots:
     void OnFilter();//слот "фильтровать"
     void OnGraphic();//слот "график"
     void OnItemChanged(int row,int column);
+    void OnShow()
+    {
+        for (int i{},total=m_pTable->columnCount();i<total;++i)
+        {
+            m_pTable->showRow(i);
+        }
+    }
 
 private:
-    unsigned const m_cuColumnWidth{150};//ширина колонны
+    unsigned const m_cuColumnWidth{200};//ширина колонны
     unsigned const m_cuWindowWidth{m_cuColumnWidth*static_cast<int>(TITLES::TITLE_SIZE)+50};//ширина окна
     List* m_pList;
     QList<QPushButton*> m_qlButtonList;//список кнопок

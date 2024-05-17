@@ -43,14 +43,15 @@ void MainWindow::createConnections()
     connect(m_qlButtonList[0],&QPushButton::clicked,this,MainWindow::OnAdd);
         connect(m_qlButtonList[1],&QPushButton::clicked,this,MainWindow::OnDelete);
 //        connect(m_qluttonList[2],&QPushButton::clicked,this,MainWindow::OnChange);
-        connect(m_qlButtonList[7],&QPushButton::clicked,this,MainWindow::OnQuit);
-        connect(m_qlButtonList[6],&QPushButton::clicked,this,MainWindow::OnLoad);
-        connect(m_qlButtonList[5],&QPushButton::clicked,this,MainWindow::OnSave);
+        connect(m_qlButtonList[8],&QPushButton::clicked,this,MainWindow::OnQuit);
+        connect(m_qlButtonList[7],&QPushButton::clicked,this,MainWindow::OnLoad);
+        connect(m_qlButtonList[6],&QPushButton::clicked,this,MainWindow::OnSave);
         connect(m_qlButtonList[3],&QPushButton::clicked,this,MainWindow::OnFilter);
         connect(m_qlButtonList[2],&QPushButton::clicked,this,MainWindow::OnSort);
-        connect(m_qlButtonList[4],&QPushButton::clicked,this,MainWindow::OnGraphic);
+        connect(m_qlButtonList[5],&QPushButton::clicked,this,MainWindow::OnGraphic);
         connect(m_pTable,m_pTable->cellChanged,this,&MainWindow::OnItemChanged);
-
+        connect(m_qlButtonList[4],&QPushButton::clicked,this,&MainWindow::OnShow)
+;
 
 }
 
@@ -60,7 +61,8 @@ void MainWindow::createButtons()
     m_qlButtonList.push_back(new QPushButton("Удалить",this));
 //    m_qlButtonList.push_back(new QPushButton("Редактировать",this));
     m_qlButtonList.push_back(new QPushButton("Отсортировать",this));
-    m_qlButtonList.push_back(new QPushButton("Найти",this));
+    m_qlButtonList.push_back(new QPushButton("Фильтр",this));
+    m_qlButtonList.push_back(new QPushButton("Отменить все фильтры",this));
     m_qlButtonList.push_back(new QPushButton("График",this));
     m_qlButtonList.push_back(new QPushButton("Сохранить как",this));
     m_qlButtonList.push_back(new QPushButton("Загрузить из файла",this));
@@ -123,24 +125,48 @@ void MainWindow::OnAdd()
 }
 void MainWindow::OnDelete()
 {
-    bool accepted;
-    DoubtMenu* menu = new DoubtMenu(&accepted);
-    menu->exec();
-    if (accepted)//подтверждено ли удаление
+    QList<QTableWidgetItem*> selected = m_pTable->selectedItems();
+
+    if (selected.empty())//проверка размера массива данных
     {
-        if (m_pList->getSize()>0)
+        QMessageBox::warning(this,"Ошибка","Удаление невозможно: не выделен элемент","Ок");
+    }
+
+    //    bool accepted;
+    else
+    {
+        std::vector<Item*> deletedItems;
+        QString articles;
+        int row;
+        std::vector<int> rows;
+        for (int i{},total=selected.size();i<total;++i)
         {
+            if (m_pTable->row(selected[i])!=row)
+            {
+                row = m_pTable->row(selected[i]);
+                rows.push_back(row);
+                QVariant article = m_pTable->item(row,0)->data(Qt::EditRole);
 
-            int curIndex = m_pTable->currentRow();
-
-            int article = (m_pTable->item(curIndex,0)->text()).toInt();
-            Item *deleted = m_pList->findByArticle(article);
-            m_pList->del(*deleted);
-            m_pTable->removeRow(curIndex);
+                deletedItems.push_back(m_pList->findByArticle(article.toUInt()));
+                articles += (article.toString())+'\n';
+            }
         }
-        else
+
+
+        QMessageBox doubt;
+        doubt.setWindowTitle("Внимание!");
+        doubt.setText("Вы уверены, что хотите удалить товары, артикул которых:\n" + articles + "?");
+        QPushButton* yesBtn = doubt.addButton(tr("Да"),QMessageBox::ActionRole);
+        QPushButton* noBtn = doubt.addButton(tr("Нет"),QMessageBox::ActionRole);
+        noBtn->setFocus();
+        doubt.exec();
+        if (doubt.clickedButton() == yesBtn)
         {
-            QMessageBox::warning(this,"Ошибка","Удаление невозможно: пустой список","Ок");
+            for (int i{},total=deletedItems.size();i<total;++i)
+            {
+                m_pList->del(*(deletedItems[i]));
+                m_pTable->removeRow(rows[i]-i);
+            }
         }
     };
 }
@@ -254,19 +280,17 @@ void MainWindow::OnFilter()
 
     if (choice!=-1)
     {
-        List* newList = new List;
-        for (int i{},total = m_pList->getSize();i<total;++i)
+        for (int i{},total = m_pTable->rowCount();i<total;++i)
         {
-            if (m_pTable->item(i,choice)->text()==text)
+            if (m_pTable->item(i,choice)->text()!=text)
             {
-                newList->add((*m_pList)[i]);
+                m_pTable->hideRow(i);
             }
         }
 
-        FilteredTable* table = new FilteredTable(newList);
-        table->exec();
-        delete newList;delete table;
+
     };
+
 
 
     delete menu;

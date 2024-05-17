@@ -29,7 +29,7 @@ void FilterMenu::OnRefuse()
 void FilterMenu::initGUI()
 {
     setWindowTitle("Выберите поле для сортировки и значение для поиска");
-    setFixedSize(500,500);
+    setFixedSize(300,200);
     createLines();
     createButtons();
     setLayout(m_pMainLayout);
