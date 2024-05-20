@@ -117,7 +117,6 @@ void MainWindow::OnAdd()
             item->setData(Qt::EditRole,(*m_pList)[id][j]);
 
             m_pTable->setItem(id, j, item);
-            item->setFlags(item->flags() &~ Qt::ItemIsEditable);
         }
     };
 
@@ -282,9 +281,10 @@ void MainWindow::OnFilter()
     {
         for (int i{},total = m_pTable->rowCount();i<total;++i)
         {
-            if (m_pTable->item(i,choice)->text()!=text)
+            if ((m_pTable->item(i,choice)->text()!=text)&&!(m_pTable->isRowHidden(i)))
             {
                 m_pTable->hideRow(i);
+
             }
         }
 

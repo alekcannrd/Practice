@@ -36,7 +36,7 @@ private slots:
     void OnItemChanged(int row,int column);
     void OnShow()
     {
-        for (int i{},total=m_pTable->columnCount();i<total;++i)
+        for (int i{},total=m_pList->getSize();i<total;++i)
         {
             m_pTable->showRow(i);
         }
